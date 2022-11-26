@@ -6,60 +6,46 @@
 /*   By: malaakso <malaakso@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 15:47:02 by malaakso          #+#    #+#             */
-/*   Updated: 2022/11/26 01:12:39 by malaakso         ###   ########.fr       */
+/*   Updated: 2022/11/26 02:02:34 by malaakso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-#include "ft_printf_utils.h"
-#include "ft_printf_hex_utils.h"
 
-static int	resolve_flag_hex(const char *flag, va_list args)
+static int	resolve_specifier_2(const char *specifier, va_list args)
 {
 	int	count;
 
 	count = 0;
-	if (*flag == 'p')
-		count = ft_int_puthex_lower_fd((unsigned long)va_arg(args, void *), 1);
+	if (*specifier == 'p' || *specifier == 'x' || *specifier == 'X')
+		count = resolve_specifier_hex(specifier, args);
 	return (count);
 }
 
-static int	resolve_flag_2(const char *flag, va_list args)
+static int	resolve_specifier_1(const char *specifier, va_list args)
 {
 	int	count;
 
 	count = 0;
-	if (*flag == 'p')
-		count = resolve_flag_hex(flag, args);
-	// else if (*flag == 'x')
-	// else if (*flag == 'X')
-	return (count);
-}
-
-static int	resolve_flag_1(const char *flag, va_list args)
-{
-	int	count;
-
-	count = 0;
-	if (*flag == '%')
+	if (*specifier == '%')
 		count = ft_int_putchar_fd('%', 1);
-	else if (*flag == 'c')
+	else if (*specifier == 'c')
 		count = ft_int_putchar_fd((char)va_arg(args, int), 1);
-	else if (*flag == 's')
+	else if (*specifier == 's')
 	{
 		count = ft_int_putstr_fd(va_arg(args, char *), 1);
 		if (count == -1)
 			count = ft_int_putstr_fd("(null)", 1);
 	}
-	else if (*flag == 'd')
+	else if (*specifier == 'd')
 		count = ft_int_putnbr_fd(va_arg(args, int), 1);
-	else if (*flag == 'i')
+	else if (*specifier == 'i')
 		count = ft_int_putnbr_fd(va_arg(args, int), 1);
-	else if (*flag == 'u')
+	else if (*specifier == 'u')
 		count = ft_int_putnbr_uint_fd((unsigned int)va_arg(args, unsigned int),
 				1);
 	else
-		count = resolve_flag_2(flag, args);
+		count = resolve_specifier_2(specifier, args);
 	return (count);
 }
 
@@ -82,7 +68,7 @@ int	ft_printf(const char *input, ...)
 		if (*input == '%')
 		{
 			input++;
-			n_of_characters_printed += resolve_flag_1(input, args);
+			n_of_characters_printed += resolve_specifier_1(input, args);
 		}
 		if (!*input)
 			break ;

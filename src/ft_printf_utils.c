@@ -6,11 +6,11 @@
 /*   By: malaakso <malaakso@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/25 14:47:21 by malaakso          #+#    #+#             */
-/*   Updated: 2022/11/25 23:47:22 by malaakso         ###   ########.fr       */
+/*   Updated: 2022/11/26 02:02:32 by malaakso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf_utils.h"
+#include "ft_printf.h"
 
 int	ft_int_putchar_fd(char c, int fd)
 {
