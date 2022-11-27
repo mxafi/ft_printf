@@ -6,7 +6,7 @@
 #    By: malaakso <malaakso@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/22 15:25:10 by malaakso          #+#    #+#              #
-#    Updated: 2022/11/26 02:07:19 by malaakso         ###   ########.fr        #
+#    Updated: 2022/11/27 18:17:18 by malaakso         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,14 +33,14 @@ C_FLAGS			+=
 .PHONY: all
 all: $(NAME)
 
-$(NAME): $(OBJ_PATHS) Makefile $(LIBFT_FOLDER)/$(LIBFT)
+$(NAME): $(FOLDER_LIST) $(OBJ_PATHS) Makefile $(LIBFT_FOLDER)/$(LIBFT)
 	cp $(LIBFT_FOLDER)/$(LIBFT) $@
 	ar rucs $@ $(OBJ_PATHS)
 
 $(OBJ_PATHS): $(OBJ_FOLDER)/%.o:$(C_FOLDER)/%.c $(H_PATHS) Makefile
 	$(COMPILER) $(C_FLAGS) -I $(H_FOLDER) -I $(LIBFT_FOLDER) -c $< -o $@
 
-$(LIBFT_FOLDER)/$(LIBFT): $(FOLDER_LIST)
+$(LIBFT_FOLDER)/$(LIBFT):
 	$(MAKE) -C $(LIBFT_FOLDER)
 
 $(FOLDER_LIST):
