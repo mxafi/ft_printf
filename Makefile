@@ -6,7 +6,7 @@
 #    By: malaakso <malaakso@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/22 15:25:10 by malaakso          #+#    #+#              #
-#    Updated: 2022/11/27 18:17:18 by malaakso         ###   ########.fr        #
+#    Updated: 2022/11/27 18:19:50 by malaakso         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,6 +49,7 @@ $(FOLDER_LIST):
 .PHONY: clean
 clean:
 	rm -f $(OBJ_PATHS)
+	rm -rf $(OBJ_FOLDER)
 	$(MAKE) fclean -C $(LIBFT_FOLDER)
 
 .PHONY: fclean
